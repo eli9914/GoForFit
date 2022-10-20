@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="he"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Backend</a> &gt; <a href="index.source.html" class="el_package">com.example.Backend.User</a> &gt; <span class="el_source">AdminController.java</span></div><h1>AdminController.java</h1><pre class="source lang-java linenums">package com.example.Backend.User;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+@RestController
+@RequestMapping(&quot;admin/&quot;)
+@CrossOrigin
+<span class="fc" id="L15">public class AdminController {</span>
+    @Autowired(required=false)
+    private AdminRepository adminRepository;
+
+    @GetMapping(&quot;/getAdmin&quot;)
+    public List&lt;Admin&gt; getAdmin(){
+<span class="fc" id="L21">        return adminRepository.findAll();</span>
+    }
+
+    @GetMapping(value=&quot;/auth/{userName}/{password}&quot;)
+    public Optional&lt;Admin&gt; AdminAuth(@PathVariable String userName,@PathVariable String password){
+<span class="fc" id="L26">        Optional&lt;Admin&gt; admin = adminRepository.findById(userName);</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        if (admin.isPresent())</span>
+        {
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">            if (Objects.equals(admin.get().getPassword(), password))</span>
+            {
+<span class="fc" id="L31">                return admin;</span>
+            }
+        }
+<span class="nc" id="L34">        return Optional.empty();</span>
+    }
+
+    @PostMapping(&quot;/&quot;)
+    public Admin saveAdmin(@RequestBody Admin admin){
+<span class="fc" id="L39">        return adminRepository.save(admin);</span>
+    }
+
+    @DeleteMapping(&quot;/{userName}&quot;)
+    public String deleteAdmin(@PathVariable String userName){
+<span class="fc" id="L44">        adminRepository.deleteById(userName);</span>
+<span class="fc" id="L45">        return &quot;User &quot; + userName + &quot; deleted&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="he"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Backend</a> &gt; <a href="index.source.html" class="el_package">com.example.Backend.User</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.example.Backend.User;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.Calendar;
+import java.util.Date;
+
+@Document
+public abstract class User {
+    @Id
+    private String userName;
+    private String email;
+    private String password;
+    private String type;
+    private String firstName;
+    private String lastName;
+    private Integer yearOfBirth;
+    private Integer monthOfBirth;
+    private Integer dayOfBirth;
+    private Float height;
+    private Float weight;
+    private String phoneNumber;
+
+<span class="fc" id="L24">    public User(String userName, String email, String password, String firstName, String lastName, Integer yearOfBirth, Integer monthOfBirth, Integer dayOfBirth, Float height, Float weight, String phoneNumber) {</span>
+<span class="fc" id="L25">        this.userName = userName;</span>
+<span class="fc" id="L26">        this.email = email;</span>
+<span class="fc" id="L27">        this.password = password;</span>
+<span class="fc" id="L28">        this.firstName = firstName;</span>
+<span class="fc" id="L29">        this.lastName = lastName;</span>
+<span class="fc" id="L30">        this.yearOfBirth = yearOfBirth;</span>
+<span class="fc" id="L31">        this.monthOfBirth = monthOfBirth;</span>
+<span class="fc" id="L32">        this.dayOfBirth = dayOfBirth;</span>
+<span class="fc" id="L33">        this.height = height;</span>
+<span class="fc" id="L34">        this.weight = weight;</span>
+<span class="fc" id="L35">        this.phoneNumber = phoneNumber;</span>
+<span class="fc" id="L36">    }</span>
+
+    public String getType() {
+<span class="fc" id="L39">        return type;</span>
+    }
+
+    public String getUserName() {
+<span class="fc" id="L43">        return userName;</span>
+    }
+
+    public void setUserName(String userName) {
+<span class="fc" id="L47">        this.userName = userName;</span>
+<span class="fc" id="L48">    }</span>
+
+    public String getEmail() {
+<span class="fc" id="L51">        return email;</span>
+    }
+
+    public void setEmail(String email) {
+<span class="fc" id="L55">        this.email = email;</span>
+<span class="fc" id="L56">    }</span>
+
+    public String getPassword() {
+<span class="fc" id="L59">        return password;</span>
+    }
+
+    public String getFirstName() {
+<span class="fc" id="L63">        return firstName;</span>
+    }
+
+    public void setFirstName(String firstName) {
+<span class="fc" id="L67">        this.firstName = firstName;</span>
+<span class="fc" id="L68">    }</span>
+
+    public String getLastName() {
+<span class="fc" id="L71">        return lastName;</span>
+    }
+
+    public void setLastName(String lastName) {
+<span class="fc" id="L75">        this.lastName = lastName;</span>
+<span class="fc" id="L76">    }</span>
+
+    public Integer getYearOfBirth() {
+<span class="fc" id="L79">        return yearOfBirth;</span>
+    }
+
+
+    public Integer getMonthOfBirth() {
+<span class="fc" id="L84">        return monthOfBirth;</span>
+    }
+
+
+    public Integer getDayOfBirth() {
+<span class="fc" id="L89">        return dayOfBirth;</span>
+    }
+
+
+    public Float getHeight() {
+<span class="fc" id="L94">        return height;</span>
+    }
+
+    public Float getWeight() {
+<span class="fc" id="L98">        return weight;</span>
+    }
+
+    public String getPhoneNumber() {
+<span class="fc" id="L102">        return phoneNumber;</span>
+    }
+
+    public void setPassword(String password) {
+<span class="fc" id="L106">        this.password = password;</span>
+<span class="fc" id="L107">    }</span>
+
+    public void setHeight(Float height) {
+<span class="nc" id="L110">        this.height = height;</span>
+<span class="nc" id="L111">    }</span>
+
+    public void setWeight(Float weight) {
+<span class="fc" id="L114">        this.weight = weight;</span>
+<span class="fc" id="L115">    }</span>
+
+    public void setPhoneNumber(String phoneNumber) {
+<span class="fc" id="L118">        this.phoneNumber = phoneNumber;</span>
+<span class="fc" id="L119">    }</span>
+
+    public void setAdmin() {
+<span class="fc" id="L122">        type = &quot;Admin&quot;;</span>
+<span class="fc" id="L123">    }</span>
+
+    public void setCoach() {
+<span class="fc" id="L126">        type = &quot;Coach&quot;;</span>
+<span class="fc" id="L127">    }</span>
+
+    public void setSportsman() {
+<span class="fc" id="L130">        type = &quot;Sportsman&quot;;</span>
+<span class="fc" id="L131">    }</span>
+
+
+    @Override
+    public String toString() {
+<span class="nc" id="L136">        return  &quot;Name: &quot; + firstName + &quot; &quot; + lastName + &quot;\n&quot; +</span>
+                &quot;User Name: &quot; + userName + &quot;\n&quot; +
+                &quot;Email: &quot; + email + &quot;\n&quot; +
+                &quot;Born In: &quot; + dayOfBirth + &quot;/&quot; + monthOfBirth + &quot;/&quot; + yearOfBirth + &quot;\n&quot; +
+                &quot;Height: &quot; + height + &quot;\n&quot; +
+                &quot;Weight: &quot; + weight + &quot;\n&quot; +
+                &quot;Phone Number: &quot; + phoneNumber + &quot;\n&quot;;
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

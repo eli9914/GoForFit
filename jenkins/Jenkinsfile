@@ -1,0 +1,58 @@
+pipeline {
+    agent {
+        docker {
+            image 'maven:3.5.4-alpine'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                sh 'cd src/test/java/com/example/Backend/Unit'
+                sh 'mvn -Dtest=com.example.Backend.** test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+        stage('Integration Tests') {
+                    steps {
+                        sh 'cd src/test/java/com/example/Backend/Integration'
+                        sh 'mvn -Dtest=com.example.Backend.** test'
+                    }
+                    post {
+                        always {
+                            junit 'target/surefire-reports/*.xml'
+                        }
+                    }
+                }
+//        stage('Code Coverage') {
+//            steps {
+//                jacoco(
+//                        execPattern: 'target/*.exec',
+//                        classPattern: 'target/classes',
+//                        sourcePattern: 'src/main/java',
+//                        exclusionPattern: 'src/test*',
+//                        changeBuildStatus: true,
+//                        runAlways: true,
+//                        minimumBranchCoverage: '60'
+//                )
+//            }
+//        }
+        //
+        
+        stage('Deliver') { 
+            steps {
+                sh "chmod +x -R ./jenkins/scripts/deliver.sh"
+                sh './jenkins/scripts/deliver.sh' 
+            }
+        }
+    }
+}
